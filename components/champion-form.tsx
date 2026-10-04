@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import Image from "next/image"
 import { Check, ExternalLink, ImagePlus, Loader2 } from "lucide-react"
 
 import { CATEGORIES, CATEGORY_TONE, type Category, type Champion, portraitUrl } from "@/lib/champions"
@@ -220,8 +221,7 @@ export function ChampionForm({ champion, existing, portraitSourceUrl, onClose, o
                       on ? "shadow-[var(--k-shadow-raised-xs),0_0_0_2px_var(--k-cloud-deep)]" : "shadow-raised-xs"
                     )}
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={portraitUrl(file, 160)} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
+                    <Image src={portraitUrl(file)} alt="" fill sizes="120px" className="object-cover object-top" />
                     <span className="absolute inset-x-0 bottom-0 truncate bg-k-bg/85 px-1 py-0.5 text-[9.5px] font-medium text-k-text-primary">
                       {stem(file)}
                     </span>

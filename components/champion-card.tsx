@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Pencil, Star, Trash2 } from "lucide-react"
 
 import {
@@ -35,14 +36,14 @@ export function ChampionCard({ champion, index, onChange, onEdit, onRemove }: Pr
     >
       {/* Portrait — inset frame; inactive champs rest desaturated */}
       <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-k-bg shadow-inset-sm">
-        {/* eslint-disable-next-line @next/next/no-img-element -- served from the local portraits folder */}
-        <img
-          src={portraitUrl(portrait, 480)}
+        <Image
+          src={portraitUrl(portrait)}
           alt={name}
+          fill
+          sizes="(max-width: 520px) 100vw, 300px"
           loading={index < 10 ? "eager" : "lazy"}
-          decoding="async"
           className={cn(
-            "h-full w-full object-cover object-top transition-[filter,opacity,transform] duration-300 group-hover:scale-[1.02]",
+            "object-cover object-top transition-[filter,opacity,transform] duration-300 group-hover:scale-[1.02]",
             !active && "opacity-75 grayscale-[0.65] group-hover:opacity-100 group-hover:grayscale-0"
           )}
         />

@@ -5,7 +5,7 @@ import path from "path"
 import type { Champion } from "./champions"
 
 const DATA_FILE = path.join(process.cwd(), "data", "champions.json")
-export const PORTRAIT_DIR = path.join(process.cwd(), "champion portraits")
+export const PORTRAIT_DIR = path.join(process.cwd(), "public", "portraits")
 export const IMAGE_EXT = [".jpg", ".jpeg", ".png", ".webp", ".avif"]
 
 export async function readChampions(): Promise<Champion[]> {

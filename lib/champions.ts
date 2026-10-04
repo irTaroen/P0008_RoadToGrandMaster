@@ -17,7 +17,7 @@ export type Champion = {
   active: boolean
   /** Played in Ranked. Only possible while active. */
   ranked: boolean
-  /** File name inside the "champion portraits" folder. */
+  /** File name inside public/portraits. */
   portrait: string
 }
 
@@ -48,8 +48,7 @@ export function isMastery(value: unknown): value is Mastery {
   return value === 1 || value === 2 || value === 3
 }
 
-/** Portrait URL; `width` requests a resized WebP (see app/api/portraits/[file]). */
-export function portraitUrl(file: string, width?: 160 | 480) {
-  const url = `/api/portraits/${encodeURIComponent(file)}`
-  return width ? `${url}?w=${width}` : url
+/** Static URL of a portrait in public/portraits; next/image handles resizing. */
+export function portraitUrl(file: string) {
+  return `/portraits/${encodeURIComponent(file)}`
 }
