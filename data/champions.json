@@ -1,0 +1,299 @@
+[
+  {
+    "id": "53934f79-4743-44a3-905e-a328ecc699cb",
+    "name": "Ahri",
+    "category": "Mage",
+    "mastery": 3,
+    "active": true,
+    "ranked": false,
+    "portrait": "Ahri.jpg"
+  },
+  {
+    "id": "5368cde2-547a-428b-9de9-0e9ff45c9158",
+    "name": "Akali",
+    "category": "Fighter",
+    "mastery": 1,
+    "active": true,
+    "ranked": false,
+    "portrait": "Akali.jpg"
+  },
+  {
+    "id": "b807a586-b6c8-407a-84d5-dcb45bd8b5c4",
+    "name": "Azir",
+    "category": "Mage",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Azir.jpg"
+  },
+  {
+    "id": "a98d5e46-ef5f-418c-ae43-c33087c259af",
+    "name": "Brand",
+    "category": "Mage",
+    "mastery": 3,
+    "active": true,
+    "ranked": false,
+    "portrait": "Brand.jpg"
+  },
+  {
+    "id": "d1e48db7-342e-4e62-86d7-033b78fe0450",
+    "name": "Braum",
+    "category": "Support",
+    "mastery": 2,
+    "active": true,
+    "ranked": false,
+    "portrait": "Braum.jpg"
+  },
+  {
+    "id": "2e07ab2a-2b7d-4422-bd8a-1276f7f7f562",
+    "name": "Caitlyn",
+    "category": "Marksman",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Caitlyn.jpg"
+  },
+  {
+    "id": "117206d9-20f6-4800-b9a8-1473f61e26df",
+    "name": "Galio",
+    "category": "Tank",
+    "mastery": 2,
+    "active": true,
+    "ranked": true,
+    "portrait": "Galio.jpg"
+  },
+  {
+    "id": "f1eff21e-3310-45e1-8ca1-330d2e552164",
+    "name": "Graves",
+    "category": "Marksman",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Graves.jpg"
+  },
+  {
+    "id": "6af68d87-8fe0-41be-b227-a652711cb28b",
+    "name": "Jinx",
+    "category": "Marksman",
+    "mastery": 3,
+    "active": true,
+    "ranked": false,
+    "portrait": "Jinx.jpg"
+  },
+  {
+    "id": "b2171114-b700-4e2f-a4ac-86c5b4ba1a1e",
+    "name": "Jayce",
+    "category": "Fighter",
+    "mastery": 2,
+    "active": true,
+    "ranked": false,
+    "portrait": "Jayce.jpg"
+  },
+  {
+    "id": "5ffd1458-146b-4266-bc25-59e9f78c40de",
+    "name": "Kai'Sa",
+    "category": "Marksman",
+    "mastery": 3,
+    "active": true,
+    "ranked": false,
+    "portrait": "Kai'Sa.jpg"
+  },
+  {
+    "id": "03cb2347-bd39-4ed2-946a-24634c01fc17",
+    "name": "Kayle",
+    "category": "Fighter",
+    "mastery": 1,
+    "active": true,
+    "ranked": false,
+    "portrait": "Kayle.jpg"
+  },
+  {
+    "id": "bdcf72af-6826-4059-8ce7-b33776a29da8",
+    "name": "LeBlanc",
+    "category": "Mage",
+    "mastery": 2,
+    "active": true,
+    "ranked": false,
+    "portrait": "LeBlanc.jpg"
+  },
+  {
+    "id": "e54b0710-aca5-470b-ba77-415761ed444d",
+    "name": "Lux",
+    "category": "Mage",
+    "mastery": 3,
+    "active": true,
+    "ranked": false,
+    "portrait": "Lux.jpg"
+  },
+  {
+    "id": "7b56d027-2385-414e-a8da-f233641840ad",
+    "name": "Mel",
+    "category": "Mage",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Mel.jpg"
+  },
+  {
+    "id": "aa9848e8-2e66-45bb-97a0-1f5c12d08cca",
+    "name": "Miss Fortune",
+    "category": "Marksman",
+    "mastery": 3,
+    "active": true,
+    "ranked": false,
+    "portrait": "Miss Fortune.jpg"
+  },
+  {
+    "id": "537d2144-beca-4431-820e-f01ef5c3c1cf",
+    "name": "Nami",
+    "category": "Support",
+    "mastery": 3,
+    "active": true,
+    "ranked": true,
+    "portrait": "Nami.jpg"
+  },
+  {
+    "id": "1d43c709-d8fa-42cd-ba4f-84e92fcea813",
+    "name": "Nocturne",
+    "category": "Fighter",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Nocturne.jpg"
+  },
+  {
+    "id": "314f5d8f-e472-49f4-9f08-39946abc0cd9",
+    "name": "Rammus",
+    "category": "Tank",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Rammus.jpg"
+  },
+  {
+    "id": "a7931b71-b543-4db8-9324-f1c72e15b0fb",
+    "name": "Samira",
+    "category": "Marksman",
+    "mastery": 2,
+    "active": true,
+    "ranked": false,
+    "portrait": "Samira.jpg"
+  },
+  {
+    "id": "e8fba8b5-2898-4e6f-b3dc-1618284b6827",
+    "name": "Smolder",
+    "category": "Marksman",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Smolder.jpg"
+  },
+  {
+    "id": "cb4848c4-32f4-4932-92de-25642bc34355",
+    "name": "Syndra",
+    "category": "Mage",
+    "mastery": 1,
+    "active": true,
+    "ranked": false,
+    "portrait": "Syndra.jpg"
+  },
+  {
+    "id": "28a2f88a-11dc-4d8b-979a-1747922fb136",
+    "name": "Tristana",
+    "category": "Marksman",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Tristana.jpg"
+  },
+  {
+    "id": "23c054e1-092c-43ef-af78-60a31500ef03",
+    "name": "Yone",
+    "category": "Fighter",
+    "mastery": 1,
+    "active": true,
+    "ranked": false,
+    "portrait": "Yone.jpg"
+  },
+  {
+    "id": "9fef8207-cddc-4155-80e5-042bbf4ecf82",
+    "name": "Yunara",
+    "category": "Marksman",
+    "mastery": 2,
+    "active": true,
+    "ranked": false,
+    "portrait": "Yunara.jpg"
+  },
+  {
+    "id": "a32131a6-b0b9-4447-bac1-70d01608447e",
+    "name": "Zeri",
+    "category": "Marksman",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Zeri.jpg"
+  },
+  {
+    "id": "8938edab-848b-420b-bf34-71048076372b",
+    "name": "Yasuo",
+    "category": "Fighter",
+    "mastery": 1,
+    "active": true,
+    "ranked": false,
+    "portrait": "Yasuo.jpg"
+  },
+  {
+    "id": "cbcd4bcd-44f9-428e-8908-d62b860201ea",
+    "name": "Vayne",
+    "category": "Marksman",
+    "mastery": 1,
+    "active": true,
+    "ranked": true,
+    "portrait": "Vayne.jpg"
+  },
+  {
+    "id": "2f2f262e-ccf1-4476-a455-38656240971e",
+    "name": "Janna",
+    "category": "Support",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Janna.jpg"
+  },
+  {
+    "id": "b0a74350-554f-484f-b5c3-1cc2c36acf20",
+    "name": "Kalista",
+    "category": "Marksman",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Kalista.jpg"
+  },
+  {
+    "id": "5f092315-b125-405d-ba12-1e64611a40a7",
+    "name": "Kha’Zix",
+    "category": "Fighter",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Kha’Zix.jpg"
+  },
+  {
+    "id": "8af810f0-d8a7-41c5-a797-5f995a18a320",
+    "name": "Lucian",
+    "category": "Marksman",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Lucian.jpg"
+  },
+  {
+    "id": "fc67434f-eb87-4e7b-b9a5-ee316e9d6c95",
+    "name": "Rakan",
+    "category": "Support",
+    "mastery": 1,
+    "active": false,
+    "ranked": false,
+    "portrait": "Rakan.jpg"
+  }
+]
