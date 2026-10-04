@@ -488,9 +488,7 @@ This is the **single source of truth**. Copy it unchanged. What it contains:
 
   /* Ambient cosmic glow — applied as background-image on body */
   --k-ambient:
-    radial-gradient(ellipse at 20% 10%, rgba(139, 92, 246, 0.12), transparent 50%),
-    radial-gradient(ellipse at 80% 90%, rgba(245, 158, 79,  0.08), transparent 50%),
-    radial-gradient(ellipse at 60% 50%, rgba(245, 215, 110, 0.05), transparent 60%);
+    radial-gradient(ellipse at 20% 10%, rgba(139, 92, 246, 0.12), transparent 50%);
 
   /* ── shadcn tokens — dark Kairos palette ─────────────────────────────────── */
   --background:                #1a1626;
@@ -1416,7 +1414,7 @@ Prefer `k-*` utilities in your own components. Use the shadcn names (`bg-backgro
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--k-ambient` | `none` | 3 radial gradients (violet 20%/10%, orange 80%/90%, yellow 60%/50%) | Body `background-image`, dark-only cosmic glow |
+| `--k-ambient` | `none` | One soft violet radial gradient (top left, 20%/10%) | Body `background-image`, dark-only cosmic glow |
 | `--k-cap-under` / `-exact` / `-over` | `#FFB38E` / `#7db533` / `#5fa8d3` | `#FFB38E` / `#C7EABB` / `#BFECFF` | Kairos capacity-bar fills only (§18) |
 
 ---
@@ -1533,7 +1531,7 @@ The default Tailwind spacing scale, with these recurring values:
 
 Two layers make dark mode feel like a night sky instead of an inverted UI:
 
-1. **Ambient glow:** `--k-ambient` holds three soft radial gradients (violet, orange, yellow) applied as the body's `background-image` with `background-attachment: fixed`. In light mode it's `none`.
+1. **Ambient glow:** `--k-ambient` holds one soft violet radial gradient (top left) applied as the body's `background-image` with `background-attachment: fixed`. In light mode it's `none`.
 2. **Starfield:** `<div className="starfield" aria-hidden="true" />` sits once in the root layout. It's a fixed layer painted with 10 tiny radial-gradient dots, **only** under `[data-theme="dark"]`. Keep it to about 10 stars; more starts to look like a screensaver.
 
 Full-screen pages that paint their own background (such as a loading screen) should reuse the ambient glow:

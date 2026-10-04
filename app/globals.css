@@ -137,9 +137,7 @@
   --k-yellow-fg: #f5d76e;  --k-yellow-bg: #352c14;
 
   --k-ambient:
-    radial-gradient(ellipse at 20% 10%, rgba(139, 92, 246, 0.12), transparent 50%),
-    radial-gradient(ellipse at 80% 90%, rgba(245, 158, 79,  0.08), transparent 50%),
-    radial-gradient(ellipse at 60% 50%, rgba(245, 215, 110, 0.05), transparent 60%);
+    radial-gradient(ellipse at 20% 10%, rgba(139, 92, 246, 0.12), transparent 50%);
 }
 
 @layer base {
