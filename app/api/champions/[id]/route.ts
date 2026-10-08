@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 import { type Champion, isCategory, isMastery } from "@/lib/champions"
-import { readChampions, writeChampions } from "@/lib/store"
+import { deleteChampion, readChampions, updateChampion } from "@/lib/store"
 
 type Ctx = { params: Promise<{ id: string }> }
 
@@ -22,14 +22,13 @@ export async function PATCH(req: Request, { params }: Ctx) {
   if (isCategory(body.category)) next.category = body.category
   if (typeof body.name === "string" && body.name.trim()) next.name = body.name.trim()
 
-  await writeChampions(list.map((c) => (c.id === id ? next : c)))
+  await updateChampion(next)
   return NextResponse.json(next)
 }
 
 /** Removes the card. The portrait file stays in the folder so it can be re-added. */
 export async function DELETE(_req: Request, { params }: Ctx) {
   const { id } = await params
-  const list = await readChampions()
-  await writeChampions(list.filter((c) => c.id !== id))
+  await deleteChampion(id)
   return new NextResponse(null, { status: 204 })
 }

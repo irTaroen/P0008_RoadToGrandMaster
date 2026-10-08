@@ -1,7 +1,7 @@
 import { ChampionPool } from "@/components/champion-pool"
 import { readChampions, readSettings } from "@/lib/store"
 
-// Reads data/champions.json on every request — no client-side fetch or spinner
+// Reads the Supabase champions table on every request — no client-side fetch or spinner
 export const dynamic = "force-dynamic"
 
 export default async function Home() {

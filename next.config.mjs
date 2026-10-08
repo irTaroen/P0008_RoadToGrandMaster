@@ -3,14 +3,17 @@ import { createRequire } from "module"
 const require = createRequire(import.meta.url)
 const { version } = require("./package.json")
 
+// Portraits live in the public Supabase Storage bucket "portraits"
+const PORTRAIT_PATH = "/storage/v1/object/public/portraits/"
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  env: { NEXT_PUBLIC_APP_VERSION: version },
-  // The API routes read public/portraits from disk (listing, existence checks);
-  // make sure the folder ships with their serverless functions.
-  outputFileTracingIncludes: {
-    "/api/portraits": ["./public/portraits/**/*"],
-    "/api/champions": ["./public/portraits/**/*"],
+  env: {
+    NEXT_PUBLIC_APP_VERSION: version,
+    NEXT_PUBLIC_PORTRAIT_BASE: process.env.SUPABASE_URL ? new URL(PORTRAIT_PATH, process.env.SUPABASE_URL).href : "",
+  },
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "*.supabase.co", pathname: `${PORTRAIT_PATH}**` }],
   },
 }
 

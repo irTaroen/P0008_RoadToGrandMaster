@@ -17,7 +17,7 @@ export type Champion = {
   active: boolean
   /** Played in Ranked. Only possible while active. */
   ranked: boolean
-  /** File name inside public/portraits. */
+  /** File name inside the Supabase "portraits" bucket. */
   portrait: string
 }
 
@@ -48,7 +48,7 @@ export function isMastery(value: unknown): value is Mastery {
   return value === 1 || value === 2 || value === 3
 }
 
-/** Static URL of a portrait in public/portraits; next/image handles resizing. */
+/** Public URL of a portrait in the Supabase "portraits" bucket; next/image handles resizing. */
 export function portraitUrl(file: string) {
-  return `/portraits/${encodeURIComponent(file)}`
+  return `${process.env.NEXT_PUBLIC_PORTRAIT_BASE}${encodeURIComponent(file)}`
 }

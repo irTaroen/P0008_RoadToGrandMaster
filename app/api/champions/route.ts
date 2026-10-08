@@ -1,10 +1,9 @@
 import { randomUUID } from "crypto"
-import { promises as fs } from "fs"
 import path from "path"
 import { NextResponse } from "next/server"
 
 import { type Champion, isCategory } from "@/lib/champions"
-import { IMAGE_EXT, readChampions, resolvePortrait, writeChampions } from "@/lib/store"
+import { IMAGE_EXT, insertChampion, listPortraits, portraitKey, readChampions, uploadPortrait } from "@/lib/store"
 
 export async function GET() {
   return NextResponse.json(await readChampions())
@@ -12,8 +11,8 @@ export async function GET() {
 
 /**
  * Adds a champion. Multipart form: name, category, and either
- * `portrait` (an existing file in the portraits folder) or `file` (an upload,
- * saved into the portraits folder as "<name><ext>").
+ * `portrait` (an existing file in the portraits bucket) or `file` (an upload,
+ * saved into the portraits bucket as "<name><ext>").
  */
 export async function POST(req: Request) {
   const form = await req.formData()
@@ -32,22 +31,16 @@ export async function POST(req: Request) {
   if (upload instanceof File && upload.size > 0) {
     const ext = path.extname(upload.name).toLowerCase()
     if (!IMAGE_EXT.includes(ext)) return error("Portrait must be a jpg, png, webp or avif")
-    portrait = `${name.replace(/[\\/:*?"<>|]/g, "")}${ext}`
-    const target = resolvePortrait(portrait)
-    if (!target) return error("Invalid file name")
-    await fs.writeFile(target, Buffer.from(await upload.arrayBuffer()))
+    portrait = portraitKey(name, ext)
+    if (portrait === ext) return error("Invalid file name")
+    await uploadPortrait(portrait, upload)
   } else {
-    const target = portrait && resolvePortrait(portrait)
-    if (!target) return error("Pick or upload a portrait")
-    try {
-      await fs.access(target)
-    } catch {
-      return error("That portrait doesn't exist")
-    }
+    if (!portrait) return error("Pick or upload a portrait")
+    if (!(await listPortraits()).includes(portrait)) return error("That portrait doesn't exist")
   }
 
   const champion: Champion = { id: randomUUID(), name, category, mastery: 1, active: false, ranked: false, portrait }
-  await writeChampions([...list, champion])
+  await insertChampion(champion)
   return NextResponse.json(champion, { status: 201 })
 }
 
