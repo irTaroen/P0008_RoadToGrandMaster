@@ -17,8 +17,19 @@ export type Champion = {
   active: boolean
   /** Played in Ranked. Only possible while active. */
   ranked: boolean
-  /** File name inside the Supabase "portraits" bucket. */
+  /** File name inside the Supabase "portraits" bucket — the default portrait or one of its skins. */
   portrait: string
+}
+
+/**
+ * Splits a portrait file name into champion and skin: "Samira_Soulfighter.jpg" →
+ * { base: "Samira", skin: "Soulfighter" }. The default portrait ("Samira.jpg") has no skin.
+ */
+export function parsePortrait(file: string): { base: string; skin: string | null } {
+  const stem = file.replace(/\.[^.]+$/, "")
+  const i = stem.indexOf("_")
+  if (i < 0) return { base: stem, skin: null }
+  return { base: stem.slice(0, i), skin: stem.slice(i + 1).replace(/_/g, " ") }
 }
 
 /** Full class strings per category — never build these at runtime (nimbus-styling.md §17.5). */
