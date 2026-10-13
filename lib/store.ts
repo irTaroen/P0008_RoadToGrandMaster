@@ -83,3 +83,7 @@ export function portraitKey(name: string, ext: string) {
 export async function uploadPortrait(file: string, upload: File) {
   check(await bucket().upload(file, upload, { contentType: upload.type, upsert: true }))
 }
+
+export async function deletePortrait(file: string) {
+  check(await bucket().remove([file]))
+}
