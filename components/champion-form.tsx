@@ -155,7 +155,7 @@ export function ChampionForm({ champion, existing, portraitSourceUrl, onClose, o
         footer={
           <>
             <div className="min-h-[16px] text-[11.5px] text-k-red-fg">{error}</div>
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2.5 compact:grid compact:grid-cols-2">
               <button type="button" onClick={onClose} disabled={saving} className="neu-action-secondary">
                 Cancel
               </button>
@@ -180,11 +180,17 @@ export function ChampionForm({ champion, existing, portraitSourceUrl, onClose, o
             </label>
             <input
               id="champ-name"
-              autoFocus
+              // Not on touch: the keyboard would cover the portraits, which usually fill in the name anyway
+              autoFocus={!window.matchMedia("(pointer: coarse)").matches}
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Ahri"
-              className="neu-input w-full rounded-full px-4 py-[11px] text-[13px] font-medium"
+              autoComplete="off"
+              autoCapitalize="words"
+              autoCorrect="off"
+              spellCheck={false}
+              enterKeyHint="done"
+              className="neu-input w-full rounded-full px-4 py-[11px] text-[13px] font-medium pointer-coarse:text-base"
             />
           </div>
 
@@ -200,7 +206,7 @@ export function ChampionForm({ champion, existing, portraitSourceUrl, onClose, o
                     aria-pressed={on}
                     onClick={() => setCategory(c)}
                     className={cn(
-                      "inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[12px] font-medium transition-[box-shadow,color] duration-200 focus-visible:outline-2 focus-visible:outline-k-cloud-mid",
+                      "inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[12px] font-medium transition-[box-shadow,color] duration-200 focus-visible:outline-2 focus-visible:outline-k-cloud-mid pointer-coarse:min-h-11 pointer-coarse:text-[13px]",
                       on
                         ? cn("shadow-inset-sm", CATEGORY_TONE[c].fill, CATEGORY_TONE[c].text)
                         : "bg-k-bg text-k-text-secondary shadow-raised-xs hover:text-k-cloud-deep"
@@ -223,7 +229,7 @@ export function ChampionForm({ champion, existing, portraitSourceUrl, onClose, o
                   target="_blank"
                   rel="noopener noreferrer"
                   title={portraitSourceUrl}
-                  className="inline-flex items-center gap-1 rounded-sm text-[11px] font-medium tracking-[0.3px] text-k-cloud-deep hover:underline focus-visible:outline-2 focus-visible:outline-k-cloud-mid"
+                  className="inline-flex items-center gap-1 rounded-sm text-[11px] font-medium tracking-[0.3px] text-k-cloud-deep hover:underline focus-visible:outline-2 focus-visible:outline-k-cloud-mid pointer-coarse:-my-3 pointer-coarse:py-3"
                 >
                   Get new portraits <ExternalLink size={11} />
                 </a>
@@ -295,7 +301,7 @@ export function ChampionForm({ champion, existing, portraitSourceUrl, onClose, o
                         title={`Delete ${label}`}
                         aria-label={`Delete ${label}`}
                         onClick={() => setDeleting(file)}
-                        className="absolute top-1 left-1 flex size-5 cursor-pointer items-center justify-center rounded-full bg-k-bg text-k-text-secondary opacity-0 shadow-raised-xs transition-[opacity,color] duration-200 group-focus-within:opacity-100 group-hover:opacity-100 hover:text-k-red-fg focus-visible:outline-2 focus-visible:outline-k-cloud-mid [@media(hover:none)]:opacity-100"
+                        className="absolute top-1 left-1 flex size-5 cursor-pointer items-center justify-center rounded-full bg-k-bg text-k-text-secondary opacity-0 shadow-raised-xs transition-[opacity,color] duration-200 group-focus-within:opacity-100 group-hover:opacity-100 hover:text-k-red-fg focus-visible:outline-2 focus-visible:outline-k-cloud-mid pointer-coarse:size-8 [@media(hover:none)]:opacity-100"
                       >
                         <Trash2 size={11} />
                       </button>
@@ -320,7 +326,10 @@ export function ChampionForm({ champion, existing, portraitSourceUrl, onClose, o
                   value={skin}
                   onChange={(e) => setSkin(e.target.value)}
                   placeholder="e.g. Soulfighter"
-                  className="neu-input w-full rounded-full px-4 py-[11px] text-[13px] font-medium"
+                  autoComplete="off"
+                  autoCapitalize="words"
+                  enterKeyHint="done"
+                  className="neu-input w-full rounded-full px-4 py-[11px] text-[13px] font-medium pointer-coarse:text-base"
                 />
               </div>
             )}
@@ -337,7 +346,7 @@ export function ChampionForm({ champion, existing, portraitSourceUrl, onClose, o
           footer={
             <>
               <span />
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2.5 compact:grid compact:grid-cols-2">
                 <button type="button" onClick={() => setDeleting(null)} disabled={removing} className="neu-action-secondary">
                   Cancel
                 </button>

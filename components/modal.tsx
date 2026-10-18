@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 /**
  * Token-built modal (nimbus-styling.md §10.11): dimmed + blurred backdrop,
  * cream panel with shadow-modal, hairlines between header / body / footer.
+ * On compact screens it's a bottom sheet with the footer actions in thumb reach.
  */
 export function Modal({
   title,
@@ -33,9 +34,17 @@ export function Modal({
     return () => window.removeEventListener("keydown", onKey)
   }, [onClose])
 
+  // Keep the page behind still (it scrolls on compact screens); restore what was there for stacked modals
+  useEffect(() => {
+    const html = document.documentElement
+    const prev = html.style.overflow
+    html.style.overflow = "hidden"
+    return () => void (html.style.overflow = prev)
+  }, [])
+
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4 backdrop-blur-[2px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4 backdrop-blur-[2px] compact:items-end compact:p-0"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose()
       }}
@@ -45,11 +54,11 @@ export function Modal({
         aria-modal="true"
         aria-labelledby="modal-title"
         className={cn(
-          "flex max-h-[90vh] w-full max-w-[540px] animate-[float-up_0.15s_ease-out_both] flex-col overflow-hidden rounded-2xl bg-k-bg shadow-modal",
+          "flex max-h-[90dvh] w-full max-w-[540px] animate-[float-up_0.15s_ease-out_both] flex-col overflow-hidden rounded-2xl bg-k-bg shadow-modal compact:max-h-[94dvh] compact:rounded-b-none",
           className
         )}
       >
-        <div className="flex items-center justify-between gap-4 px-6 pt-4 pb-3">
+        <div className="flex items-center justify-between gap-4 px-6 pt-4 pb-3 compact:px-5">
           <div className="min-w-0">
             {eyebrow && (
               <div className="mb-0.5 text-[10px] font-medium tracking-[0.6px] text-k-text-tertiary uppercase">{eyebrow}</div>
@@ -66,13 +75,16 @@ export function Modal({
 
         {children && (
           <>
-            <div className="mx-6 h-px bg-k-divider" />
-            <div className="min-h-0 flex-1 overflow-y-auto px-6 py-4">{children}</div>
+            <div className="mx-6 h-px bg-k-divider compact:mx-5" />
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 py-4 compact:px-5">{children}</div>
           </>
         )}
 
-        <div className="mx-6 h-px bg-k-divider" />
-        <div className="flex items-center justify-between gap-4 px-6 py-3">{footer}</div>
+        <div className="mx-6 h-px bg-k-divider compact:mx-5" />
+        {/* Compact: message on top, actions full width below it, clear of the home indicator */}
+        <div className="flex items-center justify-between gap-4 px-6 py-3 compact:flex-col compact:items-stretch compact:gap-2 compact:px-5 compact:pb-[max(0.75rem,env(safe-area-inset-bottom))] compact:*:empty:hidden">
+          {footer}
+        </div>
       </div>
     </div>,
     document.body

@@ -8,7 +8,8 @@ import { cn } from "@/lib/utils"
 
 /**
  * Category badge that opens a neu-popover listbox. Keyboard: Enter/Space/↓ to
- * open, ↑/↓ to move, Enter to pick, Escape to close.
+ * open, ↑/↓ to move, Enter to pick, Escape to close. On touch an invisible
+ * native <select> covers the badge instead, so the phone's own picker opens.
  */
 export function CategorySelect({
   value,
@@ -91,6 +92,20 @@ export function CategorySelect({
         {value}
         <ChevronDown size={11} className={cn("transition-transform duration-200", open && "rotate-180")} />
       </button>
+
+      {/* Taller than the badge for a ~44px target; 16px text so iOS doesn't zoom on focus */}
+      <select
+        aria-label={`Category for ${label}`}
+        value={value}
+        onChange={(e) => onChange(e.target.value as Category)}
+        className="absolute -inset-x-1 -inset-y-3 hidden cursor-pointer appearance-none text-base opacity-0 pointer-coarse:block"
+      >
+        {CATEGORIES.map((c) => (
+          <option key={c} value={c}>
+            {c}
+          </option>
+        ))}
+      </select>
 
       {open && (
         <ul

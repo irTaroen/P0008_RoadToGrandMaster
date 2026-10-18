@@ -4,6 +4,20 @@
 /* Dark mode via data-theme attribute set by next-themes */
 @custom-variant dark (&:is([data-theme="dark"] *));
 
+/* Phone layout: narrow portrait, or a landscape phone too short for the fixed desktop chrome.
+   Touch sizing uses Tailwind's pointer-coarse: instead, so iPads get it too. */
+@custom-variant compact {
+  @media (max-width: 639px), (max-height: 500px) {
+    @slot;
+  }
+}
+
+/* Side padding that clears the notch in landscape */
+@utility px-safe {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
 /* Nimbus tokens — trimmed from nimbus-styling.md §3.6 to what this app uses
    (no shadcn, no Kairos capacity/sign-in extras). */
 @theme inline {
@@ -150,6 +164,8 @@
   }
   html {
     @apply font-sans;
+    /* The neu shadows already show the press — no grey tap flash */
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
@@ -179,9 +195,18 @@
     flex-shrink: 0;
     transition: box-shadow 0.2s ease, color 0.2s ease;
   }
-  .neu-icon-btn:hover {
-    box-shadow: var(--k-shadow-inset-sm);
-    color: var(--k-cloud-deep);
+  @media (pointer: coarse) {
+    .neu-icon-btn {
+      width: 44px;
+      height: 44px;
+    }
+  }
+  /* Hover styles only where hover exists — on touch they stick after a tap */
+  @media (hover: hover) {
+    .neu-icon-btn:hover {
+      box-shadow: var(--k-shadow-inset-sm);
+      color: var(--k-cloud-deep);
+    }
   }
   .neu-icon-btn[data-active="true"] {
     box-shadow: var(--k-shadow-inset);
@@ -206,9 +231,11 @@
     gap: 8px;
     transition: box-shadow 0.25s ease, transform 0.2s ease, color 0.2s ease;
   }
-  .neu-action-primary:hover:not(:disabled) {
-    box-shadow: var(--k-shadow-lifted);
-    color: var(--k-cloud-deep);
+  @media (hover: hover) {
+    .neu-action-primary:hover:not(:disabled) {
+      box-shadow: var(--k-shadow-lifted);
+      color: var(--k-cloud-deep);
+    }
   }
   .neu-action-primary:active:not(:disabled) {
     box-shadow: var(--k-shadow-inset);
@@ -237,9 +264,11 @@
     gap: 8px;
     transition: box-shadow 0.2s ease, transform 0.15s ease, color 0.2s ease;
   }
-  .neu-action-secondary:hover:not(:disabled) {
-    box-shadow: var(--k-shadow-lifted-sm);
-    color: var(--k-cloud-deep);
+  @media (hover: hover) {
+    .neu-action-secondary:hover:not(:disabled) {
+      box-shadow: var(--k-shadow-lifted-sm);
+      color: var(--k-cloud-deep);
+    }
   }
   .neu-action-secondary:active:not(:disabled) {
     box-shadow: var(--k-shadow-inset-sm);
@@ -253,9 +282,11 @@
     color: var(--k-text-primary);
     transition: box-shadow 0.2s ease, transform 0.15s ease, color 0.2s ease;
   }
-  .neu-button:hover {
-    box-shadow: var(--k-shadow-lifted-sm);
-    color: var(--k-cloud-deep);
+  @media (hover: hover) {
+    .neu-button:hover {
+      box-shadow: var(--k-shadow-lifted-sm);
+      color: var(--k-cloud-deep);
+    }
   }
   .neu-button:active,
   .neu-button[data-active="true"] {

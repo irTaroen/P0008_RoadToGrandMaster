@@ -14,8 +14,9 @@ import { cn } from "@/lib/utils"
 import { CategorySelect } from "./category-select"
 
 // Small raised buttons over the portrait — raised-xs at rest, sink on hover.
+// Touch: 36px visible, an invisible ::after stretches the target to 44px.
 const cornerBtn =
-  "inline-flex size-8 cursor-pointer items-center justify-center rounded-[10px] bg-k-bg text-k-text-secondary shadow-raised-xs transition-[box-shadow,color] duration-200 hover:text-k-cloud-deep hover:shadow-inset-sm focus-visible:outline-2 focus-visible:outline-k-cloud-mid"
+  "relative inline-flex size-8 cursor-pointer items-center justify-center rounded-[10px] bg-k-bg text-k-text-secondary shadow-raised-xs transition-[box-shadow,color] duration-200 hover:text-k-cloud-deep hover:shadow-inset-sm focus-visible:outline-2 focus-visible:outline-k-cloud-mid pointer-coarse:size-9 pointer-coarse:after:absolute pointer-coarse:after:-inset-1 pointer-coarse:after:content-['']"
 
 type Props = {
   champion: Champion
@@ -31,16 +32,16 @@ export function ChampionCard({ champion, index, onChange, onEdit, onRemove }: Pr
   return (
     <article
       data-active={active}
-      className="group relative flex animate-[float-up_0.5s_ease_both] has-[[data-open=true]]:z-30 flex-col rounded-2xl bg-k-bg p-3 shadow-raised transition-shadow duration-250 hover:shadow-(--k-shadow-hover-card)"
+      className="group relative flex animate-[float-up_0.5s_ease_both] has-[[data-open=true]]:z-30 flex-col rounded-2xl bg-k-bg p-3 shadow-raised transition-shadow duration-250 hover:shadow-(--k-shadow-hover-card) compact:p-2"
       style={{ animationDelay: `${Math.min(index, 12) * 30}ms` }}
     >
       {/* Portrait — inset frame; inactive champs rest desaturated */}
-      <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-k-bg shadow-inset-sm">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-k-bg shadow-inset-sm compact:aspect-[4/5]">
         <Image
           src={portraitUrl(portrait)}
           alt={name}
           fill
-          sizes="(max-width: 520px) 100vw, 300px"
+          sizes="(max-width: 639px) 50vw, 300px"
           loading={index < 10 ? "eager" : "lazy"}
           className={cn(
             "object-cover object-top transition-[filter,opacity,transform] duration-300 group-hover:scale-[1.02]",
@@ -48,7 +49,8 @@ export function ChampionCard({ champion, index, onChange, onEdit, onRemove }: Pr
           )}
         />
 
-        <div className="absolute top-2 right-2 flex gap-1.5 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100">
+        {/* Revealed on hover; always shown where there is no hover */}
+        <div className="absolute top-2 right-2 flex gap-1.5 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100 compact:top-1.5 compact:right-1.5 [@media(hover:none)]:opacity-100">
           <button
             type="button"
             onClick={onEdit}
@@ -70,17 +72,19 @@ export function ChampionCard({ champion, index, onChange, onEdit, onRemove }: Pr
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 px-1.5 pt-3.5 pb-1">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="min-w-0 truncate text-[17px] leading-[1.2] font-bold tracking-[-0.3px] text-k-text-primary">
+      {/* Compact: half-width cards, so name / badge / stars / switches stack instead of sharing rows */}
+      <div className="flex flex-col gap-3 px-1.5 pt-3.5 pb-1 compact:px-1 compact:pt-2.5">
+        <div className="flex items-start justify-between gap-2 compact:flex-col compact:gap-1">
+          <h3 className="min-w-0 truncate text-[17px] leading-[1.2] font-bold tracking-[-0.3px] text-k-text-primary compact:text-[15px] compact:break-words compact:whitespace-normal">
             {name}
           </h3>
           <CategorySelect value={category} label={name} onChange={(c) => onChange({ category: c })} />
         </div>
 
-        <div className="flex items-center justify-between gap-2">
+        {/* Wraps when touch-sized stars and switches don't fit side by side (iPad) */}
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <MasteryStars value={mastery} name={name} onChange={(m) => onChange({ mastery: m })} />
-          <div className="flex flex-col items-end gap-1.5">
+          <div className="ml-auto flex flex-col items-end gap-1.5 pointer-coarse:gap-0 compact:w-full compact:items-stretch">
             <Switch
               checked={active}
               onLabel="Active"
@@ -121,11 +125,12 @@ function MasteryStars({
 
   return (
     <div className="flex min-w-0 flex-col gap-0.5">
+      {/* Touch: ~40px targets; the negative margin keeps the stars where they sit on desktop */}
       <div
         role="radiogroup"
         aria-label={`Mastery for ${name}`}
-        className="flex items-center gap-0.5"
-        onMouseLeave={() => setHover(null)}
+        className="flex items-center gap-0.5 pointer-coarse:-m-[9px]"
+        onPointerLeave={() => setHover(null)}
       >
         {([1, 2, 3] as const).map((n) => (
           <button
@@ -135,9 +140,10 @@ function MasteryStars({
             aria-checked={value === n}
             aria-label={MASTERY_LABEL[n]}
             title={MASTERY_LABEL[n]}
-            onMouseEnter={() => setHover(n)}
+            // Mouse only — a tap would leave the preview stuck on the tapped star
+            onPointerEnter={(e) => e.pointerType === "mouse" && setHover(n)}
             onClick={() => onChange(n)}
-            className="cursor-pointer rounded-sm p-0.5 transition-transform duration-150 hover:scale-110 focus-visible:outline-2 focus-visible:outline-k-cloud-mid"
+            className="cursor-pointer rounded-sm p-0.5 transition-transform duration-150 hover:scale-110 focus-visible:outline-2 focus-visible:outline-k-cloud-mid pointer-coarse:p-[11px]"
           >
             <Star
               size={17}
@@ -191,7 +197,7 @@ function Switch({
       disabled={disabled}
       title={disabled ? disabledHint : undefined}
       onClick={() => onChange(!checked)}
-      className="group/sw flex shrink-0 cursor-pointer items-center justify-end gap-2 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-k-cloud-mid disabled:cursor-not-allowed disabled:opacity-40"
+      className="group/sw flex shrink-0 cursor-pointer items-center justify-end gap-2 rounded-full pointer-coarse:min-h-11 compact:justify-between focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-k-cloud-mid disabled:cursor-not-allowed disabled:opacity-40"
     >
       <span
         className={cn(
